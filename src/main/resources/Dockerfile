@@ -1,4 +1,4 @@
-FROM ibmliberty
+FROM registry.ng.bluemix.net/ibmliberty
 
 # Install the application
 ADD dist /mc 
