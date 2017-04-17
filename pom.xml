@@ -90,25 +90,6 @@
                                 </resources>
                             </configuration>
                         </execution>
-                        <execution>
-                            <id>copy-docker-file</id>
-                            <phase>install</phase>
-                            <goals>
-                                <goal>copy-resources</goal>
-                            </goals>
-
-                            <configuration>
-                                <outputDirectory>${project.build.directory}</outputDirectory>
-                                <resources>
-                                    <resource>
-                                        <directory>${basedir}/src/main/resources</directory>
-                                        <includes>
-                                            <include>Dockerfile</include>
-                                        </includes>
-                                    </resource>
-                                </resources>
-                            </configuration>
-                        </execution>
                 </executions>
             </plugin>
 
