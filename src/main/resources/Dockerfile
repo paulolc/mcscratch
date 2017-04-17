@@ -1,7 +1,7 @@
 FROM registry.ng.bluemix.net/ibmliberty
 
 # Install the application
-ADD dist /mc 
+ADD . /mc 
 ENV MC_PORT 25565
 EXPOSE 25565
 RUN cd /mc
