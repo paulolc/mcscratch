@@ -1,4 +1,4 @@
-FROM openjdk/8
+FROM docker.io/openjdk/8
 
 # Install the application
 ADD dist /mc 
