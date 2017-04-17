@@ -1,4 +1,4 @@
-FROM docker.io/openjdk/8
+FROM ibmliberty
 
 # Install the application
 ADD dist /mc 
