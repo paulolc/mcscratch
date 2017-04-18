@@ -4,6 +4,6 @@ FROM registry.ng.bluemix.net/ibmliberty
 ADD . /mc 
 ENV MC_PORT 25565
 EXPOSE 25565
-RUN cd /mc
+WORKDIR /mc
 # Define command to run the application when the container starts
-CMD ["java", "-Xmx1024M", "-Xms1024M", "-jar", "spigot*.jar","nogui"] 
+RUN ["/bin/bash", "-c", "java -Xmx1024M -Xms1024M -jar spigot*.jar nogui"] 
