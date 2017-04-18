@@ -6,4 +6,5 @@ ENV MC_PORT 25565
 EXPOSE 25565
 WORKDIR /mc
 # Define command to run the application when the container starts
-CMD [".","start-mcscratch.sh"] 
+RUN chmod 755 start-mcscratch.sh 
+CMD ./start-mcscratch.sh
