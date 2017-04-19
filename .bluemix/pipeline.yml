@@ -1,28 +1,24 @@
 ---
 stages:
-- name: BUILD
+- name: Build
   inputs:
-  - url: https://github.com/paulolc/mcscratch.git
-    type: git
+  - type: git
     branch: master
-    dir_name: null
   triggers:
   - type: commit
   jobs:
   - name: Build
     type: builder
-    fail_stage: false
     artifact_dir: target/dist
     build_type: maven
     script: |-
       #!/bin/bash
-      mvn -B -e -X  clean install
+      mvn -B clean install
 - name: Build Container
   inputs:
   - type: job
-    stage: BUILD
+    stage: Build
     job: Build
-    dir_name: null
   triggers:
   - type: stage
   jobs:
@@ -30,9 +26,10 @@ stages:
     type: builder
     extension_id: ibm.devops.services.pipeline.container.builder
     target:
-      region_id: ibm:yp:us-south
-      organization: paulolc
-      space: myspace
+      url: ${CF_TARGET_URL}
+      organization: ${CF_ORGANIZATION}
+      space: ${CF_SPACE}  
+    USE_CACHED_LAYERS: 'true'
     COMMAND: "#!/bin/bash\n# The following colors have been defined to help with presentation\
       \ of logs: green, red, label_color, no_color.  \nlog_and_echo \"$LABEL\" \"\
       Starting build script\"\n\n# The IBM Container BM Containers plug-in (cf ic),\
@@ -65,28 +62,28 @@ stages:
       # Copy any artifacts that will be needed for deployment and testing to $WORKSPACE\
       \    #\n######################################################################################\n\
       echo \"IMAGE_NAME=${FULL_REPOSITORY_NAME}\" >> $ARCHIVE_DIR/build.properties"
-    IMAGE_NAME: mcscratch_image
-    USE_CACHED_LAYERS: 'false'
-- name: Deploy
+- name: MyStage
   inputs:
   - type: job
     stage: Build Container
     job: Build
-    dir_name: null
   triggers:
   - type: stage
   properties:
   - name: CONTAINER_SIZE
-    value: medium
+    value: small
     type: text
   jobs:
-  - name: Deploy Container
+  - name: Deploy
     type: deployer
     extension_id: ibm.devops.services.pipeline.docker.deploy.ice
     target:
-      region_id: ibm:yp:us-south
-      organization: paulolc
-      space: myspace
+      url: ${CF_TARGET_URL}
+      organization: ${CF_ORGANIZATION}
+      space: ${CF_SPACE} 
+    PORT: '80'
+    DEPLOY_TYPE: red_black
+    CONTAINER_NAME: ${CF_APP}
     COMMAND: "#!/bin/bash\n# The following are some example deployment scripts.  Use\
       \ these as is or fork them and include your updates here:\necho -e \"${label_color}Starting\
       \ deployment script${no_color}\"\n\n\n# To view/fork this script goto: https://github.com/Osthanes/deployscripts\n\
@@ -142,11 +139,3 @@ stages:
       \ green, red, label_color, no_color.\nif [ $RESULT -ne 0 ]; then\n    echo -e\
       \ \"${red}Executed failed or had warnings ${no_color}\"\n    ${EXT_DIR}/print_help.sh\n\
       \    exit $RESULT\nfi\necho -e \"${green}Execution complete${no_label}\""
-    PORT: '25565'
-    CONTAINER_NAME: mcscratch
-    DEPLOY_TYPE: red_black
-hooks:
-- enabled: true
-  label: null
-  ssl_enabled: false
-  url: https://devops-api.ng.bluemix.net/v1/messaging/webhook/publish
