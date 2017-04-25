@@ -76,11 +76,6 @@
         </profile>
         <profile>
             <id>spigot</id>
-<!--
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
--->
             <build>
                 <plugins>
                     <plugin>
