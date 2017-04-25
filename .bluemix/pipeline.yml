@@ -1,6 +1,6 @@
 ---
 stages:
-- name: Build
+- name: Compilar
   inputs:
   - type: git
     branch: master
@@ -13,8 +13,8 @@ stages:
     build_type: maven
     script: |-
       #!/bin/bash
-      mvn -B clean install
-- name: Build Container
+      mvn -B clean install -P spigot
+- name: Encaixotar
   inputs:
   - type: job
     stage: Build
@@ -62,7 +62,7 @@ stages:
       # Copy any artifacts that will be needed for deployment and testing to $WORKSPACE\
       \    #\n######################################################################################\n\
       echo \"IMAGE_NAME=${FULL_REPOSITORY_NAME}\" >> $ARCHIVE_DIR/build.properties"
-- name: MyStage
+- name: Executar
   inputs:
   - type: job
     stage: Build Container
