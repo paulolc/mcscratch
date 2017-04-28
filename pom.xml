@@ -5,8 +5,6 @@
     <artifactId>mcscratch</artifactId>
     <version>1.11.2</version>
     <packaging>pom</packaging>
-<!-- https://github.com/zhuowei/RaspberryJuice/raw/master/jars/raspberryjuice-1.9.jar -->
-<!-- https://github.com/paulolc/mcpi-scratch -->
     <name>mcscratch</name>
     <description>pom to build mcscratch</description>
     <build>
@@ -98,7 +96,7 @@
                                     <goal>wget</goal>
                                 </goals>
                                 <configuration>
-                                    <url>https://bamboo.gserv.me/browse/GSPP-SRV/latest/artifact/shared/Version-Independent-Server-JAR/glowstone.jar</url>
+                                    <url>http://bamboo.gserv.me/browse/GSPP-SRV/latest/artifact/shared/Version-Independent-Server-JAR/glowstone.jar</url>
                                     <unpack>false</unpack>
                                     <outputDirectory>${project.build.directory}/dist</outputDirectory>
                     <!-->				<md5>df65b5642f33676313ebe4d5b69a3fff</md5> -->
@@ -125,7 +123,7 @@
                                     <goal>wget</goal>
                                 </goals>
                                 <configuration>
-                                    <url>https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifact/target/BuildTools.jar</url>
+                                    <url>http://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifact/target/BuildTools.jar</url>
                                     <unpack>false</unpack>
                                     <outputDirectory>${project.build.directory}/build</outputDirectory>
                                 </configuration>
