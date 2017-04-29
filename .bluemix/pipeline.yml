@@ -31,8 +31,8 @@ stages:
     extension_id: ibm.devops.services.pipeline.container.builder
     target:
       region_id: ibm:yp:us-south
-      organization: paulolc
-      space: myspace
+      organization: ${CF_ORGANIZATION}
+      space: ${CF_SPACE}
     COMMAND: "#!/bin/bash\n# The following colors have been defined to help with presentation\
       \ of logs: green, red, label_color, no_color.  \nlog_and_echo \"$LABEL\" \"\
       Starting build script\"\n\n# The IBM Container BM Containers plug-in (cf ic),\
@@ -85,8 +85,8 @@ stages:
     extension_id: ibm.devops.services.pipeline.docker.deploy.ice
     target:
       region_id: ibm:yp:us-south
-      organization: paulolc
-      space: myspace
+      organization: ${CF_ORGANIZATION}
+      space: ${CF_SPACE}
     COMMAND: "#!/bin/bash\n# The following are some example deployment scripts.  Use\
       \ these as is or fork them and include your updates here:\necho -e \"${label_color}Starting\
       \ deployment script${no_color}\"\n\n\n# To view/fork this script goto: https://github.com/Osthanes/deployscripts\n\
